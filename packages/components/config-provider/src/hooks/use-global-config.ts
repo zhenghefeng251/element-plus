@@ -85,7 +85,14 @@ export const provideGlobalConfig = (
   const inSetup = !!getCurrentInstance()
   const oldConfig = inSetup ? useGlobalConfig() : undefined
 
-  const provideFn = app?.provide ?? (inSetup ? provide : undefined)
+  // const provideFn = app?.provide ?? (inSetup ? provide : undefined)
+  let provideFn: any = provide
+  if (inSetup) {
+    provideFn = undefined
+  }
+  if (app?.provide) {
+    provideFn = app.provide
+  }
   if (!provideFn) {
     debugWarn(
       'provideGlobalConfig',

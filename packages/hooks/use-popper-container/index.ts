@@ -25,22 +25,40 @@ const createContainer = (id: string) => {
   return container
 }
 
+// export const usePopperContainer = () => {
+//   const { id, selector } = usePopperContainerId()
+//   onBeforeMount(() => {
+//     if (!isClient) return
+
+//     // This is for bypassing the error that when under testing env, we often encounter
+//     // document.body.innerHTML = '' situation
+//     // for this we need to disable the caching since it's not really needed
+//     if (
+//       process.env.NODE_ENV === 'test' ||
+//       !document.body.querySelector(selector.value)
+//     ) {
+//       createContainer(id.value)
+//     }
+//   })
+
+//   return {
+//     id,
+//     selector,
+//   }
+// }
 export const usePopperContainer = () => {
   const { id, selector } = usePopperContainerId()
+
+  let cachedContainer: any
   onBeforeMount(() => {
     if (!isClient) return
-
-    // This is for bypassing the error that when under testing env, we often encounter
-    // document.body.innerHTML = '' situation
-    // for this we need to disable the caching since it's not really needed
     if (
       process.env.NODE_ENV === 'test' ||
-      !document.body.querySelector(selector.value)
+      (!cachedContainer && !document.body.querySelector(selector.value))
     ) {
-      createContainer(id.value)
+      cachedContainer = createContainer(id.value)
     }
   })
-
   return {
     id,
     selector,

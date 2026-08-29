@@ -38,9 +38,7 @@
     "docs:serve": "pnpm run -C docs serve",
     "docs:gen-locale": "pnpm run -C docs gen-locale",
     "docs:crowdin-credentials": "pnpm run -C docs crowdin-credentials",
-    "stub": "pnpm run -r --parallel stub",
-    "prepare": "husky",
-    "postinstall": "pnpm stub && pnpm gen:version & pnpm run -C internal/metadata dev &"
+    "stub": "pnpm run -r --parallel stub"
   },
   "dependencies": {
     "@element-plus/components": "workspace:*",
